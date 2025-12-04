@@ -12,14 +12,13 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- 魔法感標題 + 原本圓體當中文正文字 -->
   <link
     href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Zen+Maru+Gothic:wght@400;700;900&display=swap"
     rel="stylesheet">
 
   <style>
     :root {
-      /* 魔法學院色系（偏格蘭芬多＋霍格華茲氛圍） */
+      /* 魔法學院色系 */
       --hp-bg-night: #050712;
       --hp-bg-deep: #0c1020;
       --hp-gold: #d3a757;
@@ -46,14 +45,12 @@
       color: var(--hp-ink);
       overflow-x: hidden;
       padding-bottom: 24px;
-      /* 夜空＋柔和放射背景 */
       background:
         radial-gradient(circle at 20% 0%, #272b4a 0, #050712 45%) fixed,
         radial-gradient(circle at 80% 100%, #1d2b3e 0, #050712 55%) fixed;
       position: relative;
     }
 
-    /* 微弱星光 */
     body::before,
     body::after {
       content: "";
@@ -84,7 +81,7 @@
       }
     }
 
-    /* 頂部：魔法捲軸狀態列 */
+    /* 頂部狀態列 */
     .status-bar {
       position: sticky;
       top: 0;
@@ -138,6 +135,7 @@
       align-items: center;
       gap: 4px;
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.7);
+      margin-top: 2px;
     }
 
     .location-pill span.label {
@@ -189,34 +187,46 @@
       margin: 0 auto;
     }
 
-    /* === 今日焦點：魔法預言卷軸卡片 === */
+    /* === 今日焦點卡片 === */
+    .hero-card {
+      position: relative;
+      background: radial-gradient(circle at 20% 10%, #fff9e3, #e3cf9e);
+      border-radius: 26px;
+      padding: 28px 22px 24px;
+      border: 2px solid rgba(142, 108, 40, 0.9);
+      box-shadow: var(--hp-shadow);
+      color: var(--hp-ink-dark);
+      overflow: visible; /* 讓晨間占卜完整顯示 */
+      isolation: isolate;
+    }
 
-.hero-card {
-  position: relative;
-  background: radial-gradient(circle at 20% 10%, #fff9e3, #e3cf9e);
-  border-radius: 26px;
-  padding: 28px 22px 24px;
-  border: 2px solid rgba(142, 108, 40, 0.9);
-  box-shadow: var(--hp-shadow);
-  color: var(--hp-ink-dark);
-  /* 這裡改成 visible，讓「晨間占卜」可以跑到卡片外 */
-  overflow: visible;
-  isolation: isolate;
-}
+    .hero-card::before,
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      border-radius: inherit;
+    }
 
-.hero-card::before,
-.hero-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  /* 加上圓角，避免背景跑出卡片外框太明顯 */
-  border-radius: inherit;
-}
+    .hero-card::before {
+      background-image:
+        radial-gradient(circle at 10% 0%, rgba(175, 126, 47, 0.12), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(104, 71, 28, 0.16), transparent 60%);
+      opacity: 0.9;
+    }
 
+    .hero-card::after {
+      background-image:
+        repeating-linear-gradient(0deg,
+          transparent 0px,
+          transparent 10px,
+          rgba(0, 0, 0, 0.06) 11px,
+          transparent 12px);
+      opacity: 0.4;
+    }
 
-    /* 上方標籤：時間＋魔法段落 */
     .hero-period {
       position: absolute;
       top: -14px;
@@ -355,7 +365,6 @@
       opacity: 0.7;
     }
 
-    /* === 建議區：魔法咒語對應卡片 === */
     .advice-section-label {
       font-size: 0.78rem;
       text-transform: uppercase;
@@ -415,7 +424,124 @@
       color: #7b6343;
     }
 
-    /* 區塊標題：預言書卷上的章節 */
+    /* 幸運區塊 */
+    .magic-extras {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1.4fr 1.2fr;
+      gap: 10px;
+    }
+
+    .magic-card {
+      background: radial-gradient(circle at 20% 0%, rgba(12, 17, 37, 0.95), rgba(3, 4, 13, 0.98));
+      border-radius: 18px;
+      padding: 12px 14px 14px;
+      border: 1px solid rgba(210, 178, 110, 0.9);
+      box-shadow: 0 14px 26px rgba(0, 0, 0, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .magic-card::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.08), transparent 55%);
+      pointer-events: none;
+    }
+
+    .magic-card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--hp-gold-soft);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .magic-card-title span.icon {
+      font-size: 0.9rem;
+    }
+
+    .magic-card-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .magic-color-block {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      flex-shrink: 0;
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.8);
+    }
+
+    .magic-color-text {
+      font-size: 0.86rem;
+      color: var(--hp-ink);
+    }
+
+    .magic-color-text .name {
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .magic-color-text .code {
+      font-size: 0.75rem;
+      opacity: 0.85;
+    }
+
+    .magic-color-text .desc {
+      font-size: 0.75rem;
+      opacity: 0.9;
+      margin-top: 3px;
+    }
+
+    .magic-zodiac-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f7f1da;
+      margin-bottom: 2px;
+    }
+
+    .magic-zodiac-name span.en {
+      font-size: 0.7rem;
+      opacity: 0.8;
+      margin-left: 4px;
+    }
+
+    .magic-zodiac-desc {
+      font-size: 0.78rem;
+      color: #d9e0ff;
+    }
+
+    .magic-quote {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: #f0e8d5;
+      position: relative;
+      padding-left: 12px;
+      border-left: 1px solid rgba(240, 216, 166, 0.4);
+    }
+
+    .magic-quote::before {
+      content: "“";
+      position: absolute;
+      left: -4px;
+      top: -4px;
+      font-size: 1.2rem;
+      opacity: 0.6;
+      color: #f0d8a6;
+    }
+
+    /* 區塊標題 */
     .section-title {
       font-family: 'Cinzel', serif;
       font-size: 0.95rem;
@@ -440,7 +566,7 @@
       background: linear-gradient(to left, transparent, rgba(240, 216, 166, 0.6));
     }
 
-    /* 橫向滑動：時間預言水晶球 */
+    /* 未來預報卡片 */
     .scroll-container {
       display: flex;
       overflow-x: auto;
@@ -515,7 +641,7 @@
       z-index: 1;
     }
 
-    /* Loading 畫面：水晶球占卜室 */
+    /* Loading 畫面 */
     .loading-screen {
       position: fixed;
       inset: 0;
@@ -589,6 +715,12 @@
       margin-top: 4px;
     }
 
+    @media (max-width: 480px) {
+      .magic-extras {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (min-width: 480px) {
       .hero-temp {
         font-size: 4.4rem;
@@ -636,6 +768,9 @@
   <div class="container" id="mainContent" style="display: none;">
     <div id="heroCard"></div>
 
+    <!-- 今日幸運區塊 -->
+    <div id="magicExtras" class="magic-extras"></div>
+
     <h3 class="section-title">未來時段預言</h3>
     <div class="scroll-container" id="futureForecasts"></div>
   </div>
@@ -643,6 +778,49 @@
   <script>
     const API_URL = "https://weather-taipei-lei.zeabur.app/api/weather/kaohsiung";
 
+    // ===== 隨機資料：幸運色、星座、魔法小語 =====
+    const LUCKY_COLORS = [
+      { name: "Phoenix Gold", code: "#D9A441", desc: "象徵重生與勇氣，適合展開新計畫的顏色。" },
+      { name: "Moony Silver", code: "#C6D2E0", desc: "月光般的理性，幫助你做出清晰決定。" },
+      { name: "Forest Essence", code: "#3E6B52", desc: "來自森林的守護力量，穩定心情與步伐。" },
+      { name: "Arcane Purple", code: "#5E3A82", desc: "古老咒語的殘留魔力，適合需要靈感的一天。" },
+      { name: "Starlit Blue", code: "#244C7A", desc: "星空的顏色，為遠方的目標帶來指引。" },
+      { name: "Ember Red", code: "#8C2B2B", desc: "龍族火焰般的熱情，鼓勵你主動爭取機會。" },
+      { name: "Misty Beige", code: "#D8CBB1", desc: "像羊皮紙一樣柔和，適合整理思緒與計畫。" },
+      { name: "Morning Butter", code: "#F7DCA3", desc: "讓人放鬆的奶油光感，適合與人溝通、合作。" }
+    ];
+
+    const ZODIACS = [
+      { zh: "牡羊座", en: "Aries", desc: "今日行動力特別旺，適合主動出擊與嘗試新魔法。" },
+      { zh: "金牛座", en: "Taurus", desc: "穩定的土元素支撐你，把未完成的任務慢慢收尾。" },
+      { zh: "雙子座", en: "Gemini", desc: "訊息與靈感像貓頭鷹信件一樣飛來，適合溝通與腦力激盪。" },
+      { zh: "巨蟹座", en: "Cancer", desc: "情緒感受特別敏銳，很適合照顧自己與身邊的人。" },
+      { zh: "獅子座", en: "Leo", desc: "聚光燈自然落在你身上，勇敢表現自己會有好結果。" },
+      { zh: "處女座", en: "Virgo", desc: "細節檢查魔法特別強，適合整理文件與調整計畫。" },
+      { zh: "天秤座", en: "Libra", desc: "適合談合作與協調，有利達成雙贏的魔法契約。" },
+      { zh: "天蠍座", en: "Scorpio", desc: "洞察力大幅提升，適合深入研究與面對真正在意的事。" },
+      { zh: "射手座", en: "Sagittarius", desc: "冒險與學習運勢佳，適合探索新領域或開啟新專案。" },
+      { zh: "魔羯座", en: "Capricorn", desc: "耐心與實作力在線，一步步前進就能看見成果。" },
+      { zh: "水瓶座", en: "Aquarius", desc: "創意魔法充沛，很適合打破舊框架、嘗試不同做法。" },
+      { zh: "雙魚座", en: "Pisces", desc: "直覺與靈感特別敏銳，安靜下來就能聽見內心的聲音。" }
+    ];
+
+    const MAGIC_QUOTES = [
+      "別小看今天完成的一點點，它們會在未來組成很大的魔法。",
+      "天氣也許多變，但你能選擇用什麼心情面對它。",
+      "就算是陰天，雲層後面依然藏著完整的太陽。",
+      "今天的你不需要完美，只需要比昨天前進半步。",
+      "魔法師不一定要很忙，但一定要清楚自己正在朝哪裡前進。",
+      "如果覺得步伐太快，不妨停下來，讓心跟上來。",
+      "世界可能很吵，但你可以替自己的心按下靜音鍵。",
+      "天氣是外在的預報，心情則是你可以親手寫下的魔法。"
+    ];
+
+    function getRandomItem(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // ===== 原本的氣象函式 =====
     function getWeatherIcon(weather) {
       if (!weather) return "🌤️";
       if (weather.includes("晴")) return "☀️";
@@ -683,6 +861,47 @@
       return "深夜守夜人";
     }
 
+    function renderMagicExtras() {
+      const luckyColor = getRandomItem(LUCKY_COLORS);
+      const luckyZodiac = getRandomItem(ZODIACS);
+      const quote = getRandomItem(MAGIC_QUOTES);
+
+      const extras = document.getElementById('magicExtras');
+      extras.innerHTML = `
+        <div class="magic-card">
+          <div class="magic-card-title">
+            <span class="icon">🎨</span>
+            <span>今日幸運色 · MAGIC COLOR</span>
+          </div>
+          <div class="magic-card-main">
+            <div class="magic-color-block" style="background:${luckyColor.code};"></div>
+            <div class="magic-color-text">
+              <div class="name">${luckyColor.name}</div>
+              <div class="code">${luckyColor.code}</div>
+              <div class="desc">${luckyColor.desc}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="magic-card">
+          <div class="magic-card-title">
+            <span class="icon">⭐</span>
+            <span>今日幸運星 · LUCKY CONSTELLATION</span>
+          </div>
+          <div class="magic-card-main">
+            <div>
+              <div class="magic-zodiac-name">
+                ${luckyZodiac.zh}
+                <span class="en">${luckyZodiac.en}</span>
+              </div>
+              <div class="magic-zodiac-desc">${luckyZodiac.desc}</div>
+            </div>
+          </div>
+          <div class="magic-quote">${quote}</div>
+        </div>
+      `;
+    }
+
     function renderWeather(data) {
       const forecasts = data.forecasts;
       const current = forecasts[0];
@@ -699,7 +918,7 @@
           <div class="hero-top-row">
             <div class="hero-title-group">
               <div class="hero-title">今日魔法氣象</div>
-              <div class="hero-subtitle">台北 · 巫師天氣觀測站</div>
+              <div class="hero-subtitle">高雄 · 巫師天氣觀測站</div>
             </div>
             <div class="hero-sigil">☾</div>
           </div>
@@ -727,6 +946,10 @@
         </div>
       `;
 
+      // 幸運色 / 星座 / 小語
+      renderMagicExtras();
+
+      // 未來預報
       const scrollContainer = document.getElementById('futureForecasts');
       scrollContainer.innerHTML = '';
 
